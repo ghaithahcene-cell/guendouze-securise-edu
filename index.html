@@ -1,27 +1,13 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="EtA0JdKSihNQXSKTLp57Ja5_nxcc8MU72aBdtQ5q4" />
-<title>Guendouze Securise Edu - Plateforme Educative Sécurisée El Tarf</title>
-<meta name="description" content="Guendouze Securise Edu est une plateforme éducative sécurisée pour El Tarf. Cours, ressources et éducation numérique sécurisée.">
-<meta name="keywords" content="Guendouze, Securise Edu, El Tarf, education, plateforme educative">
-<style>
-body{font-family:system-ui,sans-serif;background:#0f172a;color:white;text-align:center;padding:30px}
-.card{background:white;color:#0f172a;padding:25px;border-radius:16px;max-width:600px;margin:20px auto}
-h1{color:#38bdf8}
-.btn{background:#38bdf8;color:black;padding:12px 20px;border-radius:10px;text-decoration:none;display:inline-block;margin-top:15px;font-weight:bold}
-</style>
-</head>
-<body>
-<h1>Guendouze Securise Edu</h1>
-<p>Plateforme Educative Securisee - El Tarf</p>
-<div class="card">
-<h2>Bienvenue sur Guendouze Securise Edu</h2>
-<p>Plateforme éducative sécurisée dédiée à l'éducation numérique. Site opérationnel et sécurisé pour les étudiants d'El Tarf.</p>
-<p>Le site a ete deploye avec succes</p>
-<a class="btn" href="#">Commencer</a>
-</div>
-</body>
-</html>
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Guendouze Securise Edu</title><style>:root{--b:#0f4c9e;--l:#e8f0fe}*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}body{background:#f7f9fc}header{background:#fff;padding:12px 5%;display:flex;justify-content:space-between;box-shadow:0 2px 10px #0001} .hero{padding:40px 5%;background:linear-gradient(120deg,var(--l),#fff)} .card{background:#fff;padding:18px;border-radius:14px;box-shadow:0 4px 20px #0001;text-align:center;margin:10px} .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));padding:20px 5%} #bot{position:fixed;bottom:15px;left:15px;width:340px;max-width:92vw;background:#fff;border-radius:18px;box-shadow:0 10px 30px #0003;overflow:hidden;z-index:99} #bh{background:var(--b);color:#fff;padding:10px 14px;font-weight:700} #bm{height:280px;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:8px} .m{padding:8px 12px;border-radius:12px;max-width:85%;font-size:13px} .u{align-self:flex-end;background:var(--b);color:#fff} .b{align-self:flex-start;background:var(--l)} #bi{display:flex;padding:8px;border-top:1px solid #eee} #bi input{flex:1;border:1px solid #ddd;border-radius:20px;padding:8px 12px} #bi button{margin-right:6px;background:var(--b);color:#fff;border:none;width:36px;height:36px;border-radius:50%}</style></head><body>
+<header><div style="font-weight:800;color:var(--b)">🎓 Guendouze Securise Edu<br><small style="font-size:10px">منصة مجتمعية آمنة • SSL</small></div></header>
+<div class="hero"><h2 style="color:var(--b)">تعلم بأمان، مع بعض</h2><p style="margin:10px 0;font-size:13px">منصة جزائرية مستقلة، متطوعون، دروس مجانية آمنة 100%.</p><div style="background:#dbeafe;color:var(--b);padding:6px 10px;border-radius:20px;display:inline-block;font-size:11px;font-weight:700">🔒 SSL آمن • مشروع مجتمعي مستقل</div></div>
+<div class="grid"><div class="card">🔢<h4>رياضيات</h4><small>42 درس</small></div><div class="card">⚛️<h4>فيزياء</h4><small>36 درس</small></div><div class="card">💻<h4>برمجة</h4><small>Python</small></div><div class="card">💬<h4>لغات</h4><small>30 درس</small></div></div>
+<div id="bot"><div id="bh">🤖 الأستاذ غيث الذكي</div><div id="bm"><div class="m b">السلام! أنا الأستاذ الذكي 👨‍🏫<br>اسألني عن فيتاغورس، بايثون، فيزياء... نعلمك الطريقة مش الجواب مباشرة.</div></div><div id="bi"><input id="inp" placeholder="اكتب سؤالك..."><button onclick="send()">➤</button></div></div>
+<script>
+const K={"فيتاغورس":"نظرية فيتاغورس: c²=a²+b². مثال: 3 و 4 → 9+16=25 → الوتر 5. جرب انت مثال 6 و 8؟","بايثون":"print('سلام') تطبع. x=5 تخزن. تحب نكتبو برنامج يفرق زوجي وفردي؟","رياضيات":"الرياضيات منطق. قولي وين حبست: جبر؟ هندسة؟","فيزياء":"الفيزياء فهم الطبيعة. ميكانيك ولا كهرباء؟","برمجة":"البرمجة تفكير. نبداو بمشكل صغير ونحلوه مع بعض."};
+function send(){let i=document.getElementById('inp'),t=i.value.trim();if(!t)return;add(t,'u');i.value='';setTimeout(()=>{let r="";let f=false;for(let k in K){if(t.includes(k)){r=K[k];f=true;break}} if(!f)r="سؤال ممتاز: '"+t+"'. كأستاذ، خلينا نفكرو: 1- واش هو الهدف؟ 2- واش هي القاعدة؟ 3- طبقها وقولي وين حبست نصححلك.";add(r,'b')},400)}
+function add(t,c){let d=document.getElementById('bm'),m=document.createElement('div');m.className='m '+c;m.innerText=t;d.appendChild(m);d.scrollTop=d.scrollHeight}
+document.getElementById('inp').addEventListener('keypress',e=>{if(e.key==='Enter')send()})
+</script>
+<footer style="background:var(--b);color:#fff;text-align:center;padding:15px;font-size:11px;margin-top:20px">مشروع مجتمعي مستقل من الجزائر - مؤمن بـ SSL - تعلم آمن</footer>
+</body></html>
