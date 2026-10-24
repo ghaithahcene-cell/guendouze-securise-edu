@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ghaithahcene-cell.github.io/guendouze-securise-edu/sitemap.xml
