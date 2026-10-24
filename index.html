@@ -1,118 +1,109 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GUENDOUZE - UFC - Université de la Formation Continue</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUENDOUZE - UFC | Cyber Sécurité</title>
 <style>
-*{font-family:'Cairo',Arial;box-sizing:border-box;margin:0}
-body{background:#f1f5f9;color:#0f172a;height:100vh;display:flex;flex-direction:column}
-.top{height:68px;background:#0d4a8a;color:#fff;display:flex;align-items:center;padding:0 18px;justify-content:space-between;box-shadow:0 2px 10px #0002}
-.search{width:420px;max-width:40vw;background:#fff;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px}
-.search input{border:0;outline:0;width:100%;font-size:14px;color:#334155}
-.main{flex:1;display:flex;overflow:hidden}
-.left{width:280px;background:#fff;border-right:1px solid #e2e8f0;padding:14px;overflow:auto}
-.right{flex:1;overflow:auto;padding:22px;background:#f8fafc}
-.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px #0001;transition:.2s;cursor:pointer}
-.card:hover{transform:translateY(-2px);box-shadow:0 6px 18px #0001}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
-.badge{background:#dbeafe;color:#1e40af;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
-.progress{height:8px;background:#e2e8f0;border-radius:20px;overflow:hidden;margin-top:8px}
-.bar{height:100%;background:#0d4a8a}
-.botbox{background:linear-gradient(180deg,#fff,#f0f7ff);border:2px solid #0d4a8a20;border-radius:16px;padding:14px;text-align:center;margin-bottom:14px}
-.btn{background:#0d4a8a;color:#fff;border:0;padding:8px 16px;border-radius:8px;font-weight:700;cursor:pointer}
-.btn-o{background:#fff;color:#0d4a8a;border:1px solid #0d4a8a;padding:6px 14px;border-radius:8px;cursor:pointer;font-weight:700}
-.menu{padding:10px;border-radius:10px;cursor:pointer;margin:4px 0;display:flex;gap:10px;align-items:center}
-.menu:hover,.menu.on{background:#dbeafe;color:#0d4a8a}
-.win{position:fixed;inset:0;background:#0006;display:none;align-items:center;justify-content:center;z-index:50}
-.win.on{display:flex}
-.box{width:92%;max-width:720px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px #0003;display:flex;flex-direction:column;max-height:86vh}
-.chat{flex:1;overflow:auto;padding:14px;background:#f8fafc}
-.msg{background:#fff;border:1px solid #e2e8f0;padding:10px 12px;border-radius:12px;margin:8px 0;font-size:14px;line-height:1.6}
-.me{background:#0d4a8a;color:#fff;border-color:#0d4a8a}
-@media(max-width:800px){.main{flex-direction:column}.left{width:100%}.grid{grid-template-columns:1fr}.search{width:60vw}}
+body{margin:0;font-family:'Segoe UI',Arial;background:#f4f7fb;color:#1a237e}
+header{background:linear-gradient(90deg,#0d47a1,#1976d2);color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+header input{width:40%;padding:10px 15px;border-radius:25px;border:none;outline:none}
+#layout{display:flex;min-height:90vh}
+#bot{width:300px;background:#fff;border-left:4px solid #1976d2;padding:15px;box-shadow:2px 0 10px rgba(0,0,0,.05)}
+#chat{height:350px;overflow-y:auto;background:#f8f9ff;border-radius:12px;padding:10px;margin:10px 0;font-size:14px}
+.msg{margin:6px 0;padding:8px 12px;border-radius:10px}
+.user{background:#0d47a1;color:#fff;text-align:left}
+.ai{background:#e3f2fd;color:#0d47a1}
+#content{flex:1;padding:25px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.lesson{background:#fff;border-radius:16px;padding:18px;box-shadow:0 4px 15px rgba(13,71,161,.1);border-top:4px solid #1976d2}
+.lesson h3{margin:0 0 8px;color:#0d47a1}
+.key-box{margin-top:15px;background:#fff3e0;padding:10px;border-radius:10px;font-size:12px}
+.key-box input{width:90%;padding:6px;border:1px solid #ccc;border-radius:6px}
 </style>
 </head>
 <body>
+<header>
+<b>GUENDOUZE - UFC</b>
+<input id="s" placeholder="🔍 ابحث مثال: SQL Injection مع الحل..." onkeyup="filterS()">
+<button onclick="doGeminiSearch()" style="background:#fff;color:#0d47a1;border:none;padding:8px 14px;border-radius:20px;cursor:pointer;font-weight:bold">بحث AI</button>
+</header>
 
-<div class="top">
-<div style="display:flex;align-items:center;gap:10px;font-weight:900;font-size:16px">🎓 GUENDOUZE - UFC - Université de la Formation Continue</div>
-<div class="search"><span>🔍</span><input id="s" placeholder="Rechercher un cours, une matière, une ressource..." oninput="filterS()"></div>
-<div style="display:flex;align-items:center;gap:14px"><span>🔔</span><span>💬</span><b>Étudiant ▼</b></div>
-</div>
+<div id="layout">
+<div id="bot">
+<h3 style="margin:0">🤖 أستاذ UFC الذكي</h3>
+<div id="chat"><div class="msg ai">مرحبا! أنا أستاذك. اكتب سؤالك أو استعمل السيارش الفوق باش نجيبلك مثال وحل من Gemini.</div></div>
+<input id="q" placeholder="اسألني..." style="width:70%;padding:8px;border-radius:20px;border:1px solid #ccc">
+<button onclick="askBot()" style="padding:8px 12px;border-radius:20px;background:#1976d2;color:#fff;border:none">إرسال</button>
 
-<div class="main">
-<div class="left">
-<div class="botbox">
-<div style="font-size:54px">🤖🎓</div>
-<b style="color:#0d4a8a">Bot Enseignant</b><br>
-<small style="color:#22c55e">● En ligne • Prêt à vous aider</small><br><br>
-<button class="btn" style="width:100%" onclick="openBot()">Parler avec le Bot</button>
-</div>
-
-<div class="menu on">📊 Tableau de bord</div>
-<div class="menu">📚 Mes Cours</div>
-<div class="menu">📅 Calendrier</div>
-<div class="menu">📝 Devoirs</div>
-<div class="menu">📁 Ressources</div>
-<div class="menu">💻 Terminal</div>
-<div class="menu">🐍 Pydroid 3 IDE</div>
-<div class="menu">⚙️ Paramètres</div>
-</div>
-
-<div class="right">
-<h2 style="color:#0d4a8a">Bonjour, bienvenue sur votre espace d'apprentissage</h2>
-<p style="color:#64748b;margin:6px 0 18px">Continuez votre progression et découvrez les nouveaux cours disponibles</p>
-
-<div class="grid" id="grid">
-<div class="card" data-name="cyber securite"><div style="display:flex;gap:12px"><div style="font-size:42px">🛡️</div><div><h3>Cyber Sécurité</h3><small>Sécurité réseau & Protection des données</small><br><small>Progression 65% • 12/18 leçons</small><br><span class="badge">Cybersécurité • Niveau Avancé</span></div></div><div class="progress"><div class="bar" style="width:65%"></div></div></div>
-
-<div class="card" data-name="data science"><div style="display:flex;gap:12px"><div style="font-size:42px">📊</div><div><h3>Science des Données</h3><small>Analyse de données & Machine Learning</small><br><small>Progression 40% • 6/15 leçons</small><br><span class="badge">Data Science • Niveau Intermédiaire</span></div></div><div class="progress"><div class="bar" style="width:40%"></div></div></div>
-
-<div class="card" data-name="python"><div style="display:flex;gap:12px"><div style="font-size:42px">🐍</div><div><h3>Python</h3><small>Programmation Python & Algorithmes</small><br><small>Progression 80% • 16/20 leçons</small><br><span class="badge">Programmation • Niveau Débutant</span></div></div><div class="progress"><div class="bar" style="width:80%"></div></div></div>
-
-<div class="card" data-name="reseaux"><div style="display:flex;gap:12px"><div style="font-size:42px">📡</div><div><h3>Réseaux Informatiques</h3><small>Réseaux, Protocoles & Infrastructure</small><br><small>Progression 25% • 4/16 leçons</small><br><span class="badge">Réseaux • Niveau Intermédiaire</span></div></div><div class="progress"><div class="bar" style="width:25%"></div></div></div>
-</div>
-
-<h3 style="margin:18px 0 10px;color:#0d4a8a">Cours recommandés pour vous</h3>
-<div class="grid">
-<div class="card"><b>Introduction au Cloud Computing</b><br><small>5h • 8 leçons • ⭐ 4.7</small> <button class="btn-o" style="float:right">Commencer</button></div>
-<div class="card"><b>Bases de données SQL</b><br><small>6h • 10 leçons • ⭐ 4.5</small> <button class="btn-o" style="float:right">Commencer</button></div>
-</div>
+<div class="key-box">
+🔑 مفتاح Gemini (يُحفظ في جهازك فقط):<br>
+<input id="keyInput" placeholder="AIzaSy..." type="password">
+<button onclick="saveKey()">حفظ</button>
+<br><a href="https://aistudio.google.com/app/apikey" target="_blank" style="font-size:11px">جيب مفتاح مجاني من هنا</a>
+<div id="keyStatus" style="margin-top:5px;color:green;font-size:11px"></div>
 </div>
 </div>
 
-<!-- BOT CHAT WINDOW -->
-<div id="wbot" class="win" onclick="if(event.target==this)closeBot()">
-<div class="box">
-<div style="padding:12px;background:#0d4a8a;color:#fff;display:flex;justify-content:space-between"><b>🤖 Bot Enseignant - Qondoz Claude</b><button onclick="closeBot()" style="background:#fff;color:#0d4a8a;border:0;padding:4px 10px;border-radius:6px;cursor:pointer">X</button></div>
-<div id="chat" class="chat"><div class="msg"><b>Bot Enseignant:</b> Bonjour! Je suis votre bot enseignant comme Claude. Je peux vous aider en Cyber Sécurité, Data Science, Python, Terminal, Pydroid 3. Posez votre question.</div></div>
-<div style="padding:10px;display:flex;gap:8px;border-top:1px solid #e2e8f0"><input id="q" style="flex:1;padding:10px;border:1px solid #cbd5e1;border-radius:8px" placeholder="Écrire comme à Claude..." onkeydown="if(event.key==='Enter')ask()"><button class="btn" onclick="ask()">Envoyer</button></div>
+<div id="content">
+<div class="lesson" data-name="cyber securite base"><h3>Cyber Sécurité - Base</h3><p>مقدمة في حماية الأنظمة.</p></div>
+<div class="lesson" data-name="sql injection"><h3>SQL Injection</h3><p>ثغرة حقن قواعد البيانات + الحل بـ Prepared Statements.</p></div>
+<div class="lesson" data-name="data science python"><h3>Data Science - Python</h3><p>تحليل البيانات بـ Pandas.</p></div>
+<div class="lesson" data-name="cryptographie"><h3>Cryptographie</h3><p>التشفير المتماثل وغير المتماثل.</p></div>
 </div>
 </div>
 
 <script>
-function openBot(){document.getElementById('wbot').classList.add('on')}
-function closeBot(){document.getElementById('wbot').classList.remove('on')}
-function filterS(){
- let s=document.getElementById('s').value.toLowerCase();
- document.querySelectorAll('#grid .card').forEach(c=>{
-  c.style.display=c.dataset.name.includes(s)?'block':'none';
- });
+// حفظ المفتاح محليا
+window.GEMINI_KEY = localStorage.getItem('gemini_key') || "";
+document.getElementById('keyInput').value = window.GEMINI_KEY;
+if(window.GEMINI_KEY) document.getElementById('keyStatus').innerText = "✅ المفتاح محفوظ";
+
+function saveKey(){
+  let k = document.getElementById('keyInput').value.trim();
+  localStorage.setItem('gemini_key', k);
+  window.GEMINI_KEY = k;
+  document.getElementById('keyStatus').innerText = "✅ تم الحفظ! دروك السيارش ينفذ حلول Gemini";
 }
-function ask(){
- let i=document.getElementById('q'); let t=i.value.trim(); if(!t)return;
- let ch=document.getElementById('chat');
- ch.innerHTML+=`<div class="msg me">Vous: ${t}</div>`; i.value="";
- let r="";
- let l=t.toLowerCase();
- if(l.includes("cyber")||l.includes("securite")) r="Cyber Sécurité: C'est la protection des systèmes, réseaux et données contre les cyberattaques. Modules: 1- Sécurité réseau, 2- Cryptographie, 3- Pentest. Veux-tu un cours pratique en Terminal?";
- else if(l.includes("data")||l.includes("donnees")) r="Science des Données: Analyse de données + Machine Learning + Python. On utilise Pandas, Numpy, Matplotlib. Ouvre Pydroid 3 IDE pour pratiquer.";
- else if(l.includes("python")) r="Python: print('Hello UFC') - Boucles, Fonctions, Classes. Tape ton code dans Pydroid 3 IDE.";
- else r=`Excellente question "${t}"! Comme Claude, je peux t'expliquer, te donner un exercice, ou t'écrire un code Python/Terminal pour UFC. Que veux-tu faire?`;
- ch.innerHTML+=`<div class="msg"><b>Bot Enseignant:</b> ${r}</div>`;
- ch.scrollTop=ch.scrollHeight;
+
+function addMsg(text, cls){
+  let chat = document.getElementById('chat');
+  chat.innerHTML += `<div class="msg ${cls}">${text}</div>`;
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function filterS(){
+  let q = document.getElementById('s').value.toLowerCase();
+  document.querySelectorAll('.lesson').forEach(l=>{
+    l.style.display = l.dataset.name.includes(q) || q=="" ? 'block' : 'none';
+  });
+}
+
+async function callGemini(prompt){
+  if(!window.GEMINI_KEY){ addMsg("⚠️ دير مفتاح Gemini أولا في المربع الأصفر تحت","ai"); return; }
+  addMsg("⏳ جاري البحث في Gemini...","ai");
+  try{
+    let res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${window.GEMINI_KEY}`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({contents:[{parts:[{text:`أنت أستاذ جامعي جزائري في UFC تخصص Cyber Sécurité. أجب بالعربية مع دارجة جزائرية خفيفة، اعط مثال كود وحل عملي للسؤال: ${prompt}`}]}]})
+    });
+    let data = await res.json();
+    let answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "ما قدرتش نجيب جواب، تأكد من المفتاح";
+    addMsg(answer.replace(/\n/g,"<br>"),"ai");
+  }catch(e){ addMsg("❌ خطأ: "+e.message+" - تأكد من المفتاح والأنترنت","ai"); }
+}
+
+function doGeminiSearch(){
+  let q = document.getElementById('s').value;
+  if(!q) return;
+  callGemini(q);
+}
+function askBot(){
+  let q = document.getElementById('q').value;
+  if(!q) return;
+  addMsg(q,"user");
+  document.getElementById('q').value="";
+  callGemini(q);
 }
 </script>
 </body>
