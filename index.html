@@ -1,54 +1,26 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GUENDOUZE - UFC</title>
-<style>
-*{box-sizing:border-box;margin:0;font-family:Inter,Segoe UI}body{background:#eef2f8}
-header{background:#0d47a1;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;position:sticky;top:0;z-index:99}
-header .logo{font-weight:800;font-size:14px;line-height:1.1}header input{width:38%;padding:10px 14px;border-radius:20px;border:none;outline:none}
-.layout{display:flex}aside{width:260px;background:#fff;min-height:100vh;padding:14px;border-right:1px solid #e0e7ff}
-.botBox{display:flex;align-items:center;gap:10px;padding:8px}.botBox .icon{width:44px;height:44px;background:#e3f2fd;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px}
-.menu{margin-top:18px}.menu div{padding:10px 12px;border-radius:10px;margin:4px 0;cursor:pointer;font-size:14px}
-.menu .active{background:#0d47a1;color:#fff}
-main{flex:1;padding:18px}
-.welcome{background:#d6e8ff;padding:18px;border-radius:16px;display:flex;justify-content:space-between;align-items:center}
-.welcome h2{color:#0d2445;font-size:18px}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
-.card{background:#fff;border-radius:14px;padding:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:8px}
-.card-top{display:flex;align-items:center;gap:10px}.ico{width:38px;height:38px;border-radius:10px;background:#0d47a1;color:#fff;display:flex;align-items:center;justify-content:center}
-.bar{height:8px;background:#e0e7ff;border-radius:10px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#0d47a1,#1976d2)}
-.progress{display:flex;justify-content:space-between;font-size:12px;color:#455a7a}
-#chat{margin-top:10px;background:#f7faff;border-radius:12px;padding:8px;height:180px;overflow-y:auto;font-size:12px;border:1px solid #c9d8ff}
-.msg{margin:4px 0;padding:6px 8px;border-radius:10px}.ai{background:#e3f0ff;color:#0d2445}.user{background:#0d47a1;color:#fff}
-.qbox{display:flex;gap:4px;margin-top:6px}.qbox input{flex:1;padding:8px;border-radius:20px;border:1px solid #aac4ff}.qbox button{background:#1976d2;color:#fff;border:none;padding:8px 12px;border-radius:20px;cursor:pointer}
-.keybox{margin-top:8px;background:#fff8e1;padding:6px;border-radius:8px;border:1px dashed #ff8f00;font-size:11px}
-@media(max-width:700px){.layout{flex-direction:column}aside{width:100%;min-height:auto}.cards{grid-template-columns:1fr}}
-</style></head><body>
-<header><div class="logo">🎓 GUENDOUZE - UFC<br><small>Université de la Formation Continue</small></div>
-<input id="s" placeholder="🔍 Rechercher..." onkeyup="filterS()"><div>🔔 💬 👤</div></header>
-<div class="layout">
-<aside>
-<div class="botBox"><div class="icon">🤖</div><div><b>Bot Enseignant</b><br><small style="color:green">● En ligne - 99% Prêt</small></div></div>
-<div class="menu"><div class="active">📊 Dashboard</div><div>📋 Tableau de bord</div><div>📚 Mes Cours</div><div>📅 Calendrier</div><div>📝 Devoirs</div><div>📁 Ressources</div><div>💬 Messagerie</div><div>⚙️ Paramètres</div></div>
-<div id="chat"><div class="msg ai">Bonjour 👋! Tous vos cours sont à 99% ! Posez votre question.</div></div>
-<div class="qbox"><input id="q" placeholder="Votre question..."><button onclick="ask()">Envoyer</button></div>
-<div class="keybox">🔑 Clé Gemini (sauvée localement)
-<input id="k" type="password" placeholder="AIzaSy..."><button onclick="saveK()" style="width:100%;margin-top:4px;background:#ff8f00;color:#fff;border:none;padding:6px;border-radius:6px">Sauver</button>
-<a href="https://aistudio.google.com/app/apikey" target="_blank">Obtenir clé gratuite</a> <span id="st" style="color:green"></span></div>
-</aside>
-<main>
-<div class="welcome"><div><h2>Bonjour 👋, bienvenue sur votre espace d'apprentissage</h2><small>Félicitations ! Vous êtes à 99% de progression 🎉</small></div><button style="background:#0d47a1;color:#fff;border:none;padding:8px 14px;border-radius:10px">Voir le planning</button></div>
-<div class="cards">
-<div class="card" data-name="cyber securite"><div class="card-top"><div class="ico">🛡️</div><b>Cyber Sécurité</b></div><div class="bar"><div class="fill" style="width:99%"></div></div><div class="progress"><span>18/18 leçons • Terminé</span><b>99%</b></div></div>
-<div class="card" data-name="science donnees"><div class="card-top"><div class="ico" style="background:#6c5ce7">📊</div><b>Science des Données</b></div><div class="bar"><div class="fill" style="width:99%"></div></div><div class="progress"><span>15/15 leçons • Terminé</span><b>99%</b></div></div>
-<div class="card" data-name="python"><div class="card-top"><div class="ico" style="background:#00b894">🐍</div><b>Python</b></div><div class="bar"><div class="fill" style="width:99%"></div></div><div class="progress"><span>20/20 leçons • Terminé</span><b>99%</b></div></div>
-<div class="card" data-name="reseaux"><div class="card-top"><div class="ico" style="background:#0984e3">📡</div><b>Réseaux Informatiques</b></div><div class="bar"><div class="fill" style="width:99%"></div></div><div class="progress"><span>16/16 leçons • Terminé</span><b>99%</b></div></div>
-</div>
-</main></div>
-<script>
-window.KEY=localStorage.getItem('gemini_key')||"";document.getElementById('k').value=window.KEY;if(window.KEY)document.getElementById('st').innerText="✅ Sauvée";
-function saveK(){let v=document.getElementById('k').value.trim();localStorage.setItem('gemini_key',v);window.KEY=v;document.getElementById('st').innerText="✅ Sauvée!";alert("Clé sauvée avec succès!")}
-function add(t,c){let ch=document.getElementById('chat');ch.innerHTML+=`<div class="msg ${c}">${t}</div>`;ch.scrollTop=ch.scrollHeight}
-function filterS(){let q=document.getElementById('s').value.toLowerCase();document.querySelectorAll('.card').forEach(c=>{c.style.display=c.dataset.name.includes(q)||q==""?"flex":"none"})}
-async function callAI(p){if(!window.KEY){add("⚠️ Ajoutez votre clé Gemini en bas","ai");return}add("⏳ Recherche Gemini...","ai");try{let r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${window.KEY}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:`Tu es prof UFC Algérie Cyber Sécurité, réponds en français avec exemple code: ${p}`}]}]})});let d=await r.json();let a=d.candidates?.[0]?.content?.parts?.[0]?.text||"Erreur clé - vérifiez";add(a.replace(/\n/g,"<br>"),"ai")}catch(e){add("Erreur: "+e.message,"ai")}}
-function ask(){let v=document.getElementById('q').value;if(!v)return;add(v,"user");document.getElementById('q').value="";callAI(v)}
-</script>
-</body></html>
+async function callAI(p){
+ if(!KEY){add("⚠️ Ajoutez votre clé Gemini en bas","ai");return}
+ add("⏳ Gemini 2.0 cherche...","ai");
+ try{
+  let url=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`;
+  let r=await fetch(url,{
+   method:'POST',
+   headers:{
+     'Content-Type':'application/json',
+     'x-goog-api-key': KEY
+   },
+   body:JSON.stringify({contents:[{parts:[{text:p}]}]})
+  });
+  let d=await r.json();
+  console.log(d);
+  if(d.error){
+    add("❌ Google dit: "+d.error.message,"ai");
+    if(d.error.message.includes("API key") ){
+      add("→ روح لـ aistudio.google.com → API Keys → تأكد أن المفتاح Type = Auth key و Restriction = Generative Language API","ai");
+    }
+    return;
+  }
+  let txt=d.candidates?.[0]?.content?.parts?.[0]?.text||"Pas de réponse";
+  add(txt.replace(/\n/g,"<br>"),"ai");
+ }catch(e){add("Erreur: "+e.message,"ai");}
+}
