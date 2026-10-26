@@ -1,26 +1,141 @@
-async function callAI(p){
- if(!KEY){add("⚠️ Ajoutez votre clé Gemini en bas","ai");return}
- add("⏳ Gemini 2.0 cherche...","ai");
- try{
-  let url=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`;
-  let r=await fetch(url,{
-   method:'POST',
-   headers:{
-     'Content-Type':'application/json',
-     'x-goog-api-key': KEY
-   },
-   body:JSON.stringify({contents:[{parts:[{text:p}]}]})
-  });
-  let d=await r.json();
-  console.log(d);
-  if(d.error){
-    add("❌ Google dit: "+d.error.message,"ai");
-    if(d.error.message.includes("API key") ){
-      add("→ روح لـ aistudio.google.com → API Keys → تأكد أن المفتاح Type = Auth key و Restriction = Generative Language API","ai");
-    }
-    return;
-  }
-  let txt=d.candidates?.[0]?.content?.parts?.[0]?.text||"Pas de réponse";
-  add(txt.replace(/\n/g,"<br>"),"ai");
- }catch(e){add("Erreur: "+e.message,"ai");}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOC & SIEM Lab - Guendouze Ahcene - مدرسة قندوز أحسن</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial;background:#f8fafc;color:#1e293b;line-height:1.8}
+.header{background:#fff;padding:14px 24px;box-shadow:0 2px 10px rgba(0,0,0,.05);display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:16px;color:#1e3a8a}
+.badge{background:#dbeafe;color:#1e3a8a;padding:4px 10px;border-radius:20px;font-size:12px}
+.container{max-width:1100px;margin:20px auto;padding:0 16px;display:grid;gap:20px}
+.card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 4px 14px rgba(0,0,0,.06);border:1px solid #e2e8f0}
+.card h2{color:#1e3a8a;margin-bottom:10px;font-size:18px}
+.card h3{color:#334155;margin:14px 0 6px;font-size:15px}
+.theory{background:#eff6ff;border-right:4px solid #2563eb}
+.scenario{background:#fef3c7;border-right:4px solid #d97706}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>Guendouze Ahcene CyberLab - مدرسة قندوز أحسن - SOC & SIEM</h1>
+<span class="badge">المحطة 1 - المحاضرة 1</span>
+</div>
+<div class="container">
+<div class="card theory">
+<h2>📘 1. الجانب النظري</h2>
+<h3>ما هو الـ SOC؟</h3>
+<p>هو الفريق أو النظام المسؤول عن مراقبة البنية التحتية للمؤسسة على مدار الساعة لاكتشاف أي نشاط مشبوه أو محاولة اختراق والتصدي لها فوراً.</p>
+<h3>ما هو الـ SIEM؟</h3>
+<p>هو العقل المدبر الذي يجمع السجلات (Logs) من مختلف أجهزة الشبكة، الخوادم، وأنظمة الحماية، ويقوم بتحليلها في الوقت الفعلي للبحث عن الأنماط الخبيثة.</p>
+</div>
+<div class="card scenario">
+<h2>🚨 2. سيناريو العملي - بلاغ حقيقي</h2>
+<p><b>البلاغ:</b> رصد نظام الحماية لعدة محاولات تسجيل دخول فاشلة متتالية تلتها عملية دخول ناجحة من عنوان بروتوكول غريب (IP غير معتاد) خارج ساعات العمل الرسمية لخادم قاعدة البيانات الأساسي DB-SRV-01 الساعة 02:14 صباحا.</p>
+</div>
+<style>
+.lab-steps{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:800px){.lab-steps{grid-template-columns:1fr}}
+.terminal{background:#0f172a;color:#22c55e;border-radius:10px;padding:12px;font-family:monospace;font-size:13px;min-height:220px;max-height:320px;overflow:auto;direction:ltr;text-align:left}
+.log-line.fail{color:#f87171}
+.log-line.success{color:#4ade80;font-weight:bold}
+.log-line.susp{color:#fbbf24;background:#422006}
+.btn{padding:8px 14px;border-radius:8px;border:1px solid #2563eb;background:#fff;color:#2563eb;cursor:pointer;font-weight:600;margin:4px}
+.btn.active{background:#2563eb;color:#fff}
+.btn.danger{border-color:#dc2626;color:#dc2626}
+.btn.danger.active{background:#dc2626;color:#fff}
+.alert{padding:10px;border-radius:8px;margin-top:10px;font-size:13px}
+.alert.ok{background:#dcfce7;color:#166534}
+.alert.bad{background:#fee2e2;color:#991b1b}
+input[type=text]{padding:8px;border:1px solid #cbd5e1;border-radius:6px;width:100%;margin:6px 0}
+</style>
+
+<div class="card">
+<h2>🔬 3. خطوات التطبيق العملي</h2>
+<div class="lab-steps">
+<div>
+<h3>الخطوة 1: Extraction</h3>
+<div style="display:flex;gap:6px;margin:8px 0">
+<button class="btn" onclick="runCmd('cat /var/log/auth.log')">cat auth.log</button>
+<button class="btn" onclick="runCmd('grep FAILED')">grep FAILED</button>
+<button class="btn" onclick="runCmd('grep SUCCESS')">grep SUCCESS</button>
+</div>
+<input type="text" id="cmdInput" placeholder="اكتب أمر مثل: grep 203.0.113.45" onkeydown="if(event.key==='Enter')runCmd(this.value)">
+<div class="terminal" id="terminal">root@DB-SRV-01:~$ جاهز للتحليل...<br></div>
+</div>
+<div>
+<h3>الخطوة 2: Analysis</h3>
+<input type="text" id="ipAnswer" placeholder="مثال: 203.0.113.45">
+<button class="btn" onclick="checkIP()">تحقق من الـ IP</button>
+<div id="ipResult"></div>
+<h3>هل هو هجوم Brute Force؟</h3>
+<button class="btn" id="yesBtn" onclick="setAttack(true)">نعم</button>
+<button class="btn" id="noBtn" onclick="setAttack(false)">لا</button>
+<div id="attackResult"></div>
+<h3>الخطوة 3: Mitigation</h3>
+<div id="mitigation">
+<button class="btn danger" onclick="addMit('block')">1. حظر الـ IP</button>
+<button class="btn" onclick="addMit('reset')">2. إعادة تعيين كلمة المرور</button>
+<button class="btn" onclick="addMit('report')">3. رفع تقرير</button>
+</div>
+<div id="mitList" style="font-size:12px;margin-top:8px;min-height:40px;background:#f8fafc;padding:6px;border-radius:6px"></div>
+<button class="btn active" onclick="submitLab()">إرسال الحل النهائي</button>
+<div id="finalReport"></div>
+</div>
+</div>
+</div>
+<div class="card">
+<h2>📊 تقرير الطالب - صحيح 100% بدون تضخيم</h2>
+<div id="mainReport" style="font-family:monospace;background:#f1f5f9;padding:10px;border-radius:8px;font-size:12px;white-space:pre-wrap">لم يبدأ الطالب بعد.</div>
+</div>
+</div>
+
+<script>
+const logs = [
+"Jan 15 01:58:12 DB-SRV-01 sshd[4521]: Failed password for admin from 203.0.113.45 port 51234",
+"Jan 15 01:58:45 DB-SRV-01 sshd[4521]: Failed password for admin from 203.0.113.45 port 51235",
+"Jan 15 01:59:10 DB-SRV-01 sshd[4521]: Failed password for admin from 203.0.113.45 port 51236",
+"Jan 15 02:00:02 DB-SRV-01 sshd[4521]: Failed password for admin from 203.0.113.45 port 51237",
+"Jan 15 02:14:03 DB-SRV-01 sshd[4521]: Accepted password for admin from 203.0.113.45 port 51555 ssh2",
+"Jan 15 02:14:05 DB-SRV-01 sudo: admin : COMMAND=/bin/bash",
+"Jan 15 08:00:12 DB-SRV-01 sshd[2101]: Accepted password for ahcene from 192.168.1.10 port 22 - normal"
+];
+let state={ip:'',isAttack:null,mit:[]};
+function runCmd(cmd){
+ const term=document.getElementById('terminal');
+ let out='';
+ if(cmd.includes('auth.log')||cmd.includes('cat')){ out=logs.map(l=>`<div class="log-line ${l.includes('Failed')?'fail':l.includes('203.0.113.45')&&l.includes('Accepted')?'susp':'success'}">${l}</div>`).join(''); }
+ else if(cmd.includes('FAILED')){ out=logs.filter(l=>l.includes('Failed')).map(l=>`<div class="log-line fail">${l}</div>`).join(''); }
+ else if(cmd.match(/\d+\.\d+\.\d+\.\d+/)){ const ip=cmd.match(/\d+\.\d+\.\d+\.\d+/)[0]; out=logs.filter(l=>l.includes(ip)).map(l=>`<div class="log-line susp">${l}</div>`).join('')||'لا يوجد'; }
+ else { out=`<div>جرب: cat /var/log/auth.log أو grep 203.0.113.45</div>`; }
+ term.innerHTML=`root@DB-SRV-01:~$ ${cmd}<br>`+out;
 }
+function checkIP(){
+ const ip=document.getElementById('ipAnswer').value.trim(); state.ip=ip;
+ const el=document.getElementById('ipResult');
+ if(ip==='203.0.113.45'){ el.innerHTML='<div class="alert ok">✅ صحيح! هذا هو الـ IP المهاجم</div>'; }
+ else { el.innerHTML='<div class="alert bad">❌ خطأ. ابحث عن IP يتكرر مع FAILED ثم SUCCESS</div>'; }
+}
+function setAttack(v){ state.isAttack=v; const el=document.getElementById('attackResult');
+ if(v){ el.innerHTML='<div class="alert ok">✅ صحيح - Brute Force</div>'; }
+ else { el.innerHTML='<div class="alert bad">❌ ليس نشاط عادي</div>'; }
+}
+function addMit(a){ if(!state.mit.includes(a)){ state.mit.push(a); document.getElementById('mitList').innerText='ترتيبك: '+state.mit.join(' -> '); } }
+function submitLab(){
+ let score=0; if(state.ip==='203.0.113.45')score+=40; if(state.isAttack===true)score+=30; if(state.mit[0]==='block'&&state.mit.includes('reset')&&state.mit.includes('report'))score+=30;
+ const details=`تقرير SOC & SIEM - مدرسة قندوز أحسن - Guendouze Ahcene
+التاريخ: ${new Date().toLocaleString('ar-DZ')}
+IP الذي حدده الطالب: ${state.ip||'لم يحدد'}
+هل حدد Brute Force: ${state.isAttack===true?'نعم':'لا'}
+الإجراءات: ${state.mit.join(' -> ')||'لا شيء'}
+النتيجة الحقيقية (بدون تضخيم): ${score}%
+${score>=80?'✅ ناجح':'❌ يحتاج إعادة'}
+هذا التقرير مولد من أفعال الطالب الحقيقية فقط.`;
+ document.getElementById('finalReport').innerHTML=`<div class="alert ${score>=80?'ok':'bad'}">${details.replace(/\n/g,'<br>')}</div>`;
+ document.getElementById('mainReport').innerText=details;
+}
+</script>
+</body>
+</html>
